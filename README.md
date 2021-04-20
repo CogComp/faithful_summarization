@@ -11,7 +11,7 @@ with Contrast Candidate Generation and Selection"](https://www.seas.upenn.edu/~s
 }
 ```
 
-## Use the Correction Model
+## Use the Correction Model for Summary Ranking
 The trained BART-base model for classifying whether a summary is hallucinated/faithful is published to huggingface model hub as [`CogComp/bart-faithful-summary-detector`](https://huggingface.co/CogComp/bart-faithful-summary-detector). With the `transformers` library installed, you can use it as follows.  
 
 ```python
@@ -46,12 +46,12 @@ To reproduce the evaluation results:
 
 - `ROUGE`: We use version `0.0.4` of [`rouge-score`](https://pypi.org/project/rouge-score/) library. 
 - `BertScore`: We use version `0.3.6` of [bert-score](https://github.com/Tiiiger/bert_score), with the `roberta-large_L17_no-idf_version=0.3.6` model. See their [github readme]((https://github.com/Tiiiger/bert_score)) for instructions. 
-- `FEQA`: See the example usage below for `run_feqa.py`. Check the [FEQA](https://github.com/esdurmus/feqa/blob/master/feqa.py) repo for the complete list of required libraries. 
+- `FEQA`: See the example usage below for `run_feqa.py`. Check the [FEQA](https://github.com/esdurmus/feqa/blob/master/feqa.py) repo for the complete list of required libraries. Note: You may want to use a fresh environment for FEQA, as it requires a different version of `transformers`. 
 
 ```bash
 python run_feqa.py \  
     --source_file data/source.part.txt
-    --target_file data/corrected.part.txt
+    --summary_file data/corrected.part.txt
     --result_file data/feqa_corrected_results.json
 ```
 
