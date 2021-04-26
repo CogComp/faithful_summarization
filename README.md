@@ -54,4 +54,10 @@ python run_feqa.py \
     --summary_file data/corrected.part.txt
     --result_file data/feqa_corrected_results.json
 ```
+## Create Unfaithful Variants via Entity Perturbation
+The script for this will be updated in the next few days.
 
+## Training 
+The training data and validation data we generated can be downloaded from this [google drive folder](https://github.com/CogComp/faithful_summarization).
+
+The training script will be updated in the next few days.  
