@@ -58,6 +58,6 @@ python run_feqa.py \
 The script for this will be updated in the next few days.
 
 ## Training 
-The training data and validation data we generated can be downloaded from this [google drive folder](https://github.com/CogComp/faithful_summarization).
+The training data and validation data we generated can be downloaded from this [google drive folder](https://drive.google.com/drive/folders/18Eqfemxf6wOQeSUNrZMlacF2OvwaRQ87?usp=sharing).
 
 The training script will be updated in the next few days.  
