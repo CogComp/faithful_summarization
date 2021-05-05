@@ -55,6 +55,12 @@ python run_feqa.py \
     --result_file data/feqa_corrected_results.json
 ```
 ## Create Unfaithful Variants via Entity Perturbation
+Please install the following packages:
+```
+stanza
+word2number # We use this to normalize surface forms of quantities and numbers  
+```
+
 We use [`stanza`](https://stanfordnlp.github.io/stanza/) to extract the named entities in text. For exact reproducibility, please install `stanza=1.1.1`.
 ```
 pip install stanza
@@ -104,6 +110,12 @@ You can also control the maximum number of variants generated for each instance.
 The training data and validation data we generated (by following the steps outlined in the previous section) can be
  downloaded from this [google drive folder](https://drive.google.com/drive/folders/18Eqfemxf6wOQeSUNrZMlacF2OvwaRQ87?usp=sharing).
 
+Please install the following packages:
+```
+transformers==3.4.0
+tqdm
+torch
+```
 With the `transformers` installed (we used `transformers==3.4.0`), first run `bpe_tokenize.py` on each of the 
 train/val split to cache tokenized input. For example, 
 ```
