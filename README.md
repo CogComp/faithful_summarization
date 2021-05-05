@@ -101,6 +101,21 @@ You can also control the maximum number of variants generated for each instance.
 
   
 ## Training 
-The training data and validation data we generated can be downloaded from this [google drive folder](https://drive.google.com/drive/folders/18Eqfemxf6wOQeSUNrZMlacF2OvwaRQ87?usp=sharing).
+The training data and validation data we generated (by following the steps outlined in the previous section) can be
+ downloaded from this [google drive folder](https://drive.google.com/drive/folders/18Eqfemxf6wOQeSUNrZMlacF2OvwaRQ87?usp=sharing).
 
-The training script will be updated in the next few days.  
+With the `transformers` installed (we used `transformers==3.4.0`), first run `bpe_tokenize.py` on each of the 
+train/val split to cache tokenized input. For example, 
+```
+python bpe_tokenize.py \
+    --model_name facebook/bart-base \
+    --data_file train.jsonl \
+    --output_path train.tokenized 
+```
+Run the training script. By default `cuda` is enabled.  
+```
+python train.py \
+    --model_name facebook/bart-base \ 
+    --train_data_file train.tokenized \
+    --save_dir model/
+```
