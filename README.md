@@ -100,7 +100,7 @@ python make_entity_perturbations.py \
     --source_file source.txt \
     --target_stanza_output target.stanza \ 
     --target_file target.txt \
-    --output_path  test.jsonl
+    --output_path  test.jsonl \
     --eval
 ```
 You can also control the maximum number of variants generated for each instance. e.g. `--limit=10`. 
