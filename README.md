@@ -50,13 +50,56 @@ To reproduce the evaluation results:
 
 ```bash
 python run_feqa.py \  
-    --source_file data/source.part.txt
-    --summary_file data/corrected.part.txt
+    --source_file data/source.part.txt \
+    --summary_file data/corrected.part.txt \ 
     --result_file data/feqa_corrected_results.json
 ```
 ## Create Unfaithful Variants via Entity Perturbation
-The script for this will be updated in the next few days.
+We use [`stanza`](https://stanfordnlp.github.io/stanza/) to extract the named entities in text. For exact reproducibility, please install `stanza=1.1.1`.
+```
+pip install stanza
+```
+Download the english models with the following python snippet:
+```python
+import stanza
+stanza.download('en') # download English model
+```
+Put the source text and summary text in two line-separated files respectively (See `data/source.part.txt` and `data/target.part.txt` for example). 
+First annotate the two files with NER by running
+```
+python stanford_nlp_process.py source.txt source.stanza
+python stanford_nlp_process.py target.txt target.stanza
+```   
+This will create `source.stanza` and `target.stanza` as two jsonline files; each json would be the annotated version of 
+source and target text.
 
+Next, generate alternative versions of the summary by running:
+```
+python make_entity_perturbations.py \
+    --source_stanza_output source.stanza \
+    --source_file source.txt \
+    --target_stanza_output target.stanza \ 
+    --target_file target.txt \
+    --output_path  train.jsonl
+```
+This will generate alternative summaries in **training mode**, i.e. only generate alternative versions if 
+all entities in the original summary have appeared in the source document. This is to make sure that we can safely
+use the original summary as the "positive" examples during training. 
+
+In **evaluation mode**, it's the other way around -- we only want to generate variants when the original summary is 
+hallucinated. To run the script in evaluation mode, add the `--eval` flag.
+```
+python make_entity_perturbations.py \
+    --source_stanza_output source.stanza \
+    --source_file source.txt \
+    --target_stanza_output target.stanza \ 
+    --target_file target.txt \
+    --output_path  test.jsonl
+    --eval
+```
+You can also control the maximum number of variants generated for each instance. e.g. `--limit=10`. 
+
+  
 ## Training 
 The training data and validation data we generated can be downloaded from this [google drive folder](https://drive.google.com/drive/folders/18Eqfemxf6wOQeSUNrZMlacF2OvwaRQ87?usp=sharing).
 
